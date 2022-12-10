@@ -1,0 +1,50 @@
+version: "3.4"
+
+services:
+  mysql:
+    image: mysql:5.7
+    restart: unless-stopped
+    container_name: xm-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+    volumes:
+      - xm-mysql-data:/var/lib/mysql:z
+      - /etc/localtime:/etc/localtime:ro
+
+  cache-redis:
+    image: redis:latest
+    container_name: xm-cache-redis
+
+  php-fpm:
+    build:
+      context: ./backend/docker
+      dockerfile: Dockerfile.php-fpm
+    restart: unless-stopped
+    container_name: xm-php-fpm
+    links:
+      - mysql
+      - cache-redis
+
+  frontend:
+    build:
+      context: ./frontend/docker
+      dockerfile: Dockerfile.frontend
+    restart: unless-stopped
+    container_name: xm-frontend
+
+  xm-nginx:
+    build:
+      context: ./nginx/
+      dockerfile: Dockerfile.nginx
+    container_name: xm-nginx
+    ports:
+      - "80:80"
+    links:
+      - php-fpm
+      - frontend
+
+volumes:
+  xm-mysql-data:
+    driver: local
