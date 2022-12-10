@@ -1,0 +1,16 @@
+FROM node:14
+
+RUN apt-get update && \
+    apt-get install -y nginx vim
+
+RUN npm install -g npm@latest
+RUN npm install -g @angular/cli
+
+COPY frontend /opt/app
+WORKDIR /opt/app
+RUN npm install --omit=dev
+RUN ng build --configuration production
+
+RUN mv -r /opt/app/dist /tmp/dist
+RUN rm -rf /opt/app
+RUN mv -r /tmp/dist /opt/app
