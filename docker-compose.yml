@@ -19,8 +19,8 @@ services:
 
   php-fpm:
     build:
-      context: ./backend/docker
-      dockerfile: Dockerfile.php-fpm
+      context: .
+      dockerfile: ./backend/docker/Dockerfile.php-fpm
     restart: unless-stopped
     container_name: xm-php-fpm
     links:
@@ -29,15 +29,15 @@ services:
 
   frontend:
     build:
-      context: ./frontend/docker
-      dockerfile: Dockerfile.frontend
+      context: .
+      dockerfile: ./frontend/docker/Dockerfile.frontend
     restart: unless-stopped
     container_name: xm-frontend
 
   xm-nginx:
     build:
-      context: ./nginx/
-      dockerfile: Dockerfile.nginx
+      context: .
+      dockerfile: ./nginx/Dockerfile.nginx
     container_name: xm-nginx
     ports:
       - "80:80"
