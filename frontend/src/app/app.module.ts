@@ -9,11 +9,15 @@ import {NbThemeModule, NbLayoutModule, NbDatepickerModule} from '@nebular/theme'
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {NbMomentDateModule} from "@nebular/moment";
 import { HistoryDataComponent } from './history-data/history-data.component';
+import {AgGridModule} from "ag-grid-angular";
+import { HistoryDataRequestComponent } from './history-data-request/history-data-request.component';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HistoryDataComponent
+    HistoryDataComponent,
+    HistoryDataRequestComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import { HistoryDataComponent } from './history-data/history-data.component';
     NbDatepickerModule.forRoot(),
     NbMomentDateModule,
     ReactiveFormsModule,
+    AgGridModule,
+    NgApexchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
