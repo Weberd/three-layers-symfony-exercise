@@ -4,4 +4,5 @@ export interface IPriceInterface {
   high: number,
   low: number,
   close: number,
+  volume: number
 }

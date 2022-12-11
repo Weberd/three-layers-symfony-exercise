@@ -5,10 +5,12 @@
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
     [rowData]="historyData"
+    [animateRows]="true"
+    (gridReady)="onGridReady($event)"
   ></ag-grid-angular>
 </div>
 <div id="chart">
-  <apx-chart
+  <apx-chart #chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [xaxis]="chartOptions.xaxis"
