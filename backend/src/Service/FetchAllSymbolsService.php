@@ -5,13 +5,10 @@ namespace App\Service;
 use App\Entity\Company;
 use Doctrine\ORM\EntityManagerInterface;
 
-class AllCompanySymbolsService
+class FetchAllSymbolsService
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     public function getAllSymbols(): array
