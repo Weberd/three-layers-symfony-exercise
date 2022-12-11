@@ -34,10 +34,10 @@ services:
     restart: unless-stopped
     container_name: xm-frontend
 
-  xm-nginx:
+  nginx:
     build:
-      context: .
-      dockerfile: ./nginx/Dockerfile.nginx
+      context: ./nginx
+      dockerfile: Dockerfile.nginx
     container_name: xm-nginx
     ports:
       - "80:80"
