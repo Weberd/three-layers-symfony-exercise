@@ -52,8 +52,14 @@
             <div *ngIf="f['startDate'].errors?.['required']">
               <p class="text-red-500 text-xs italic">Start Date is required.</p>
             </div>
-            <div *ngIf="f['startDate'].errors?.['dateValidator']">
-              Start Date is invalid
+            <div *ngIf="f['startDate'].errors?.['nbDatepickerParse']">
+              <p class="text-red-500 text-xs italic">Start Date is invalid.</p>
+            </div>
+            <div *ngIf="f['startDate'].errors?.['nbDatepickerMin']">
+              <p class="text-red-500 text-xs italic">Start Date below minimum.</p>
+            </div>
+            <div *ngIf="f['startDate'].errors?.['nbDatepickerMax']">
+              <p class="text-red-500 text-xs italic">Start Date above maximum.</p>
             </div>
           </div>
         </div>
@@ -80,8 +86,14 @@
             <div *ngIf="f['endDate'].errors?.['required']">
               <p class="text-red-500 text-xs italic">End Date is required.</p>
             </div>
-            <div *ngIf="f['endDate'].errors?.['dateValidator']">
-              End Date is invalid
+            <div *ngIf="f['endDate'].errors?.['nbDatepickerParse']">
+              <p class="text-red-500 text-xs italic">End Date is invalid.</p>
+            </div>
+            <div *ngIf="f['endDate'].errors?.['nbDatepickerMin']">
+              <p class="text-red-500 text-xs italic">Start Date below minimum.</p>
+            </div>
+            <div *ngIf="f['endDate'].errors?.['nbDatepickerMax']">
+              <p class="text-red-500 text-xs italic">Start Date above maximum.</p>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {DateValidator} from "../validators/date.validator";
+import {FormBuilder, Validators} from "@angular/forms";
+import {momentDateValidator} from "../validators/momentDateValidator";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,9 @@ export class AppComponent {
 
   historyRequestForm = this.formBuilder.group({
     ticker: ['', Validators.required],
-    startDate: [moment().subtract(7, 'days'), [Validators.required, DateValidator.dateValidator]],
-    endDate: [moment(), [Validators.required, DateValidator.dateValidator]],
-    email: ['', Validators.required, Validators.email],
+    startDate: [moment().subtract(7, 'days'), []],
+    endDate: [moment(), []],
+    email: ['', [Validators.required, Validators.email]],
   });
 
   constructor(private formBuilder: FormBuilder) {}
@@ -32,17 +32,5 @@ export class AppComponent {
     if (this.historyRequestForm.invalid) {
       return
     }
-  }
-
-  dateValidator(control: FormControl): { [p: string]: boolean } | null {
-    if (control.value) {
-      const date = moment(control.value);
-      const today = moment();
-
-      if (date.isBefore(today)) {
-        return { 'invalidDate': true }
-      }
-    }
-    return null;
   }
 }

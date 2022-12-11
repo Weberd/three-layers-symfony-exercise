@@ -8,10 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbThemeModule, NbLayoutModule, NbDatepickerModule} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {NbMomentDateModule} from "@nebular/moment";
+import { HistoryDataComponent } from './history-data/history-data.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HistoryDataComponent
   ],
   imports: [
     BrowserModule,
