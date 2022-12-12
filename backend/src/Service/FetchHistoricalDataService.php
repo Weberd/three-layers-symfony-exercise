@@ -2,10 +2,6 @@
 
 namespace App\Service;
 
-use Doctrine\Common\Cache\Psr6\CacheAdapter;
-use Predis\Client;
-use Symfony\Component\Cache\Adapter\RedisAdapter;
-use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
