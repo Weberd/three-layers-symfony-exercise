@@ -13,17 +13,14 @@ cd xm/backend
 composer install
 cd ..
 docker-compose -f docker-compose.yml up -d
-```
-Wait a little bit
-
-```
-docker exec 'symfony console doctrine:database:create'
-docker exec 'symfony console doctrine:migration:migrate'
-docker exec 'symfony console doctrine:fixtures:load'
+cd backend
+symfony console doctrine:database:create
+symfony console doctrine:migration:migrate
+symfony console doctrine:fixtures:load
 symfony server:start
 ```
 
-### Frontend
+### Frontend (in another console)
 
 ```
 cd frontend
