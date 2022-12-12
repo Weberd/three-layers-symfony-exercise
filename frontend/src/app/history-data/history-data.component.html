@@ -4,7 +4,7 @@
     class="ag-theme-alpine"
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
-    [rowData]="historyData$ | async"
+    [rowData]="historyData"
     [animateRows]="true"
     (gridReady)="onGridReady($event)"
   ></ag-grid-angular>

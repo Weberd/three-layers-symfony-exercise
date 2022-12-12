@@ -34,7 +34,7 @@ export class HistoryDataComponent {
   public endDate = 0;
   public email = '';
 
-  public historyData$ = of<IPriceInterface[]>([]);
+  public historyData: IPriceInterface[] = [];
 
   constructor(
     private historyDataService: HistoricalDataService,
@@ -103,8 +103,9 @@ export class HistoryDataComponent {
       this.endDate = params['endDate'];
       this.email = params['email'];
 
-      this.historyData$ = this.historyDataService.fetch(this.symbol, this.startDate, this.endDate, this.email);
-      this.historyData$.subscribe((prices: IPriceInterface[]) => {
+      this.historyDataService.fetch(this.symbol, this.startDate, this.endDate, this.email).subscribe((prices: IPriceInterface[]) => {
+        this.historyData = prices;
+
         this.chart?.updateSeries([{
           data: prices.map((hd: IPriceInterface) => {
             return {
