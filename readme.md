@@ -8,7 +8,7 @@
 
 ### Backend
 ```
-git clone https://github.com/Weberd/xm.git .
+git clone https://github.com/Weberd/xm.git xm
 cd xm/backend
 composer install
 cd ..
