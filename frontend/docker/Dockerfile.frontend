@@ -14,3 +14,9 @@ RUN ng build --configuration production
 RUN mv /opt/app/dist /tmp/dist
 RUN rm -rf /opt/app
 RUN mv /tmp/dist /opt/app
+
+RUN npm install -g pm2
+ADD frontend/docker/process.yml /etc/app/process.yml
+COPY nginx.conf /etc/nginx/sites-enables/default
+
+CMD ["pm2-runtime", "/etc/app/process.yml"]
