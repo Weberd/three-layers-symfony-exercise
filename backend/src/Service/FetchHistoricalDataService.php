@@ -13,7 +13,7 @@ class FetchHistoricalDataService implements FetchHistoricalDataInterface
 {
     public function __construct(
         protected HttpClientInterface $client,
-        protected CacheService $cacheService
+        protected CacheServiceInterface $redisCacheService
     )
     {
     }
@@ -54,8 +54,8 @@ class FetchHistoricalDataService implements FetchHistoricalDataInterface
      */
     public function fetch(string $symbol, int $startDate, int $endDate): array
     {
-        if ($this->cacheService->exists($symbol)) {
-            $data = json_decode($this->cacheService->get($symbol), true);
+        if ($this->redisCacheService->exists($symbol)) {
+            $data = json_decode($this->redisCacheService->get($symbol), true);
         } else {
             $response = $this->client->request(
                 'GET',
@@ -68,7 +68,7 @@ class FetchHistoricalDataService implements FetchHistoricalDataInterface
                 ]
             );
 
-            $this->cacheService->set($symbol, $response->getContent(false));
+            $this->redisCacheService->set($symbol, $response->getContent(false));
             $data = $response->toArray(true);
         }
 
