@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\Company;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ValidateSymbolService
+class ValidateSymbolService implements ValidateSymbolInterface
 {
     private EntityManagerInterface $em;
 

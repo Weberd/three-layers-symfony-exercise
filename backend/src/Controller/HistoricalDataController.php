@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Request\HistoricDataRequest;
+use App\Request\RequestInterface;
+use App\Service\FetchHistoricalDataInterface;
 use App\Service\FetchHistoricalDataService;
 use App\Service\SendHistoricalDataEmailService;
+use App\Service\SendStockEmailInterface;
+use App\Service\ValidateSymbolInterface;
 use App\Service\ValidateSymbolService;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,17 +28,17 @@ class HistoricalDataController extends AbstractController
         methods:['GET'],
     )]
     public function index(
-        HistoricDataRequest $request,
-        ValidateSymbolService $validateSymbolService,
-        FetchHistoricalDataService $fetchHistoricalDataService,
-        SendHistoricalDataEmailService $sendHistoricalDataEmailService
+        RequestInterface           $historyDataRequest,
+        ValidateSymbolInterface    $validateSymbolService,
+        FetchHistoricalDataInterface $fetchHistoricalDataService,
+        SendStockEmailInterface    $sendHistoricalDataEmailService
     ): JsonResponse
     {
-        $request->validate();
-        $symbol = $request->getRequest()->query->get('symbol');
-        $startDate = $request->getRequest()->query->get('start_date');
-        $endDate = $request->getRequest()->query->get('end_date');
-        $email = $request->getRequest()->query->get('email');
+        $historyDataRequest->validate();
+        $symbol = $historyDataRequest->getRequest()->query->get('symbol');
+        $startDate = $historyDataRequest->getRequest()->query->get('start_date');
+        $endDate = $historyDataRequest->getRequest()->query->get('end_date');
+        $email = $historyDataRequest->getRequest()->query->get('email');
 
         if (!$validateSymbolService->validate($symbol))
             return new JsonResponse('Wrong Symbol', 400);

@@ -9,7 +9,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class FetchHistoricalDataService
+class FetchHistoricalDataService implements FetchHistoricalDataInterface
 {
     public function __construct(
         protected HttpClientInterface $client,

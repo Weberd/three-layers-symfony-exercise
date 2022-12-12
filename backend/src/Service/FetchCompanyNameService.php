@@ -6,7 +6,7 @@ use App\Entity\Company;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\ORM\EntityManagerInterface;
 
-class FetchCompanyNameService
+class FetchCompanyNameService implements FetchCompanyNameInterface
 {
     public function __construct(protected EntityManagerInterface $em)
     {

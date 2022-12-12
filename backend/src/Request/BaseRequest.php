@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-abstract class BaseRequest
+abstract class BaseRequest implements RequestInterface
 {
     public function __construct(protected ValidatorInterface $validator)
     {

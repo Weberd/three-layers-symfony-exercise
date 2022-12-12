@@ -2,7 +2,7 @@
 
 namespace App\Transformer;
 
-class CompanySymbols2JsonTransformer
+class CompanySymbols2JsonTransformer implements CompanyTransformerInterface
 {
     public function transform(array $companies)
     {
