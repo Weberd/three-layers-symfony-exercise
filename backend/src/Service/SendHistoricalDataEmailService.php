@@ -31,7 +31,7 @@ class SendHistoricalDataEmailService implements SendStockEmailInterface
             $endDateText = date('YYY-mm-dd', $endDate);
 
             $email = (new Email())
-                ->from('gocihab377@cosaxu.com')
+                ->from($_ENV['FROM_MAILER_ADDRESS'])
                 ->to($email)
                 ->subject($this->fetchCompanyNameService->fetch($symbol))
                 ->text("From $startDateText to $endDateText");
