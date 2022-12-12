@@ -2,12 +2,19 @@
 
 namespace App\Service;
 
+use Doctrine\Common\Cache\Psr6\CacheAdapter;
+use Predis\Client;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class FetchHistoricalDataService
 {
-    public function __construct(protected HttpClientInterface $client)
+    public function __construct(
+        protected HttpClientInterface $client,
+        protected CacheService $cacheService
+    )
     {
     }
 
@@ -47,18 +54,25 @@ class FetchHistoricalDataService
      */
     public function fetch(string $symbol, int $startDate, int $endDate): array
     {
-        $response = $this->client->request(
-            'GET',
-            sprintf($_ENV['RAPID_API_URL'], $symbol),
-            [
-                'headers' => [
-                    'X-RapidAPI-Host' => $_ENV['RAPID_API_HOST'],
-                    'X-RapidAPI-Key'  => $_ENV['RAPID_API_KEY']
+        if ($this->cacheService->exists($symbol)) {
+            $data = json_decode($this->cacheService->get($symbol), true);
+        } else {
+            $response = $this->client->request(
+                'GET',
+                sprintf($_ENV['RAPID_API_URL'], $symbol),
+                [
+                    'headers' => [
+                        'X-RapidAPI-Host' => $_ENV['RAPID_API_HOST'],
+                        'X-RapidAPI-Key'  => $_ENV['RAPID_API_KEY']
+                    ]
                 ]
-            ]
-        );
+            );
 
-        $map = $this->transformData($response->toArray(true));
+            $this->cacheService->set($symbol, $response->getContent(false));
+            $data = $response->toArray(true);
+        }
+
+        $map = $this->transformData($data);
         $map = $this->sliceData($map, $startDate, $endDate);
         return $map;
     }
