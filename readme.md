@@ -22,6 +22,12 @@ symfony server:start
 
 ### Frontend (in another console)
 
+#### Prerequisites
+```
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+npm install -g @angular/cli
+```
+
 ```
 cd frontend
 npm install
