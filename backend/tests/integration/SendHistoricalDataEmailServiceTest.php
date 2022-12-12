@@ -2,9 +2,12 @@
 
 namespace App\Tests;
 
+use App\Entity\Company;
 use App\Service\FetchCompanyNameService;
 use App\Service\SendHistoricalDataEmailService;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Mailer\Bridge\Sendgrid\Transport\SendgridApiTransport;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -24,12 +27,16 @@ class SendHistoricalDataEmailServiceTest extends KernelTestCase
         // $routerService = static::getContainer()->get('router');
         // $myCustomService = static::getContainer()->get(CustomService::class);
 
-        $fcn = $this->createMock(FetchCompanyNameService::class);
-        $fcn->expects($this->any())->method('fetch')->willReturn('Amazon');
+        $c = new Company();
+        $c->setName('Amazon');
+        $c->setSymbol('AMZN');
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($c);
+        $em->flush();
 
         $s = new SendHistoricalDataEmailService(
             new Mailer(new SendgridApiTransport($_ENV['SENDGRID_KEY'])),
-            $fcn
+            new FetchCompanyNameService($em)
         );
         $s->send('AMZN', strtotime('-7 days'), strtotime(''), 'weberdster@gmail.com');
     }
