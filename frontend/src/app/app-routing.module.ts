@@ -9,7 +9,7 @@ const routes: Routes = [
     component: HistoryDataRequestComponent,
   },
   {
-    path: 'history-data',
+    path: 'history-data/:symbol/:startDate/:endDate/:email',
     component: HistoryDataComponent
   },
   {

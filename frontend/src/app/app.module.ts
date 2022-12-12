@@ -12,6 +12,9 @@ import { HistoryDataComponent } from './history-data/history-data.component';
 import {AgGridModule} from "ag-grid-angular";
 import { HistoryDataRequestComponent } from './history-data-request/history-data-request.component';
 import {NgApexchartsModule} from "ng-apexcharts";
+import {SymbolsService} from "../services/symbols.service";
+import {HistoricalDataService} from "../services/historical-data.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -32,8 +35,12 @@ import {NgApexchartsModule} from "ng-apexcharts";
     ReactiveFormsModule,
     AgGridModule,
     NgApexchartsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    SymbolsService,
+    HistoricalDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

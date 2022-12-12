@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import * as moment from "moment/moment";
 import {Router} from "@angular/router";
+import {SymbolsService} from "../../services/symbols.service";
 
 @Component({
   selector: 'app-history-data-request',
@@ -10,6 +11,7 @@ import {Router} from "@angular/router";
 })
 export class HistoryDataRequestComponent {
   public maxEndDate = moment();
+  public symbols$ = this.symbolsService.fetch();
 
   historyRequestForm = this.formBuilder.group({
     ticker: ['', Validators.required],
@@ -20,7 +22,8 @@ export class HistoryDataRequestComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private symbolsService: SymbolsService
   ) {}
 
   get f() { return this.historyRequestForm.controls; }
@@ -36,6 +39,17 @@ export class HistoryDataRequestComponent {
       return
     }
 
-    this.router.navigate(['history-data'])
+    const dto = this.historyRequestForm.getRawValue();
+
+    dto.startDate?.set({hour:0,minute:0,second:0,millisecond:0})
+    dto.endDate?.set({hour:23,minute:59,second:59,millisecond:999})
+
+    this.router.navigate([
+      'history-data',
+      dto.ticker,
+      dto.startDate?.unix(),
+      dto.endDate?.unix(),
+      dto.email
+    ])
   }
 }

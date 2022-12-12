@@ -14,8 +14,32 @@ class FetchHistoricalDataService
     protected function transformData($data): array
     {
         $data = $data['prices'];
+        $map = [];
 
-        return $data;
+        foreach ($data as $entry) {
+            $date = $entry['date'];
+            unset($entry['adjclose']);
+            $map[$date] = $entry;
+        }
+
+        ksort($map, SORT_NUMERIC);
+        return $map;
+    }
+
+    protected function sliceData($map, $startDate, $endDate): array
+    {
+        $slice = [];
+
+        foreach ($map as $key => $value) {
+            if ($key >= $startDate && $key <= $endDate)
+                $slice[] = $value;
+
+            if ($key >= $endDate) {
+                break;
+            }
+        }
+
+        return $slice;
     }
 
     /**
@@ -25,7 +49,7 @@ class FetchHistoricalDataService
     {
         $response = $this->client->request(
             'GET',
-            sprintf($_ENV['RAPI_API_URL'], $symbol),
+            sprintf($_ENV['RAPID_API_URL'], $symbol),
             [
                 'headers' => [
                     'X-RapidAPI-Host' => $_ENV['RAPID_API_HOST'],
@@ -34,6 +58,8 @@ class FetchHistoricalDataService
             ]
         );
 
-        return $this->transformData($response->toArray(true));
+        $map = $this->transformData($response->toArray(true));
+        $map = $this->sliceData($map, $startDate, $endDate);
+        return $map;
     }
 }
