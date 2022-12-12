@@ -19,33 +19,33 @@ services:
     ports:
       - "6379:6379"
 
-  php-fpm:
-    build:
-      context: .
-      dockerfile: ./backend/docker/Dockerfile.php-fpm
-    restart: unless-stopped
-    container_name: xm-php-fpm
-    links:
-      - mysql
-      - cache-redis
-
-  frontend:
-    build:
-      context: .
-      dockerfile: ./frontend/docker/Dockerfile.frontend
-    restart: unless-stopped
-    container_name: xm-frontend
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.nginx
-    container_name: xm-nginx
-    ports:
-      - "80:80"
-    links:
-      - php-fpm
-      - frontend
+#  php-fpm:
+#    build:
+#      context: .
+#      dockerfile: ./backend/docker/Dockerfile.php-fpm
+#    restart: unless-stopped
+#    container_name: xm-php-fpm
+#    links:
+#      - mysql
+#      - cache-redis
+#
+#  frontend:
+#    build:
+#      context: .
+#      dockerfile: ./frontend/docker/Dockerfile.frontend
+#    restart: unless-stopped
+#    container_name: xm-frontend
+#
+#  nginx:
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile.nginx
+#    container_name: xm-nginx
+#    ports:
+#      - "80:80"
+#    links:
+#      - php-fpm
+#      - frontend
 
 volumes:
   xm-mysql-data:
