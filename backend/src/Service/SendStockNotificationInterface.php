@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-interface SendStockEmailInterface
+interface SendStockNotificationInterface
 {
     public function send(string $symbol, int $startDate, int $endDate, string $email): void;
 }

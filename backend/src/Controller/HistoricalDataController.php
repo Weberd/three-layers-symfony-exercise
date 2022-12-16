@@ -6,8 +6,8 @@ use App\Request\HistoricDataRequest;
 use App\Request\RequestInterface;
 use App\Service\FetchHistoricalDataInterface;
 use App\Service\FetchHistoricalDataService;
-use App\Service\SendHistoricalDataEmailService;
-use App\Service\SendStockEmailInterface;
+use App\Service\SendHistoricalDataNotificationService;
+use App\Service\SendStockNotificationInterface;
 use App\Service\ValidateSymbolInterface;
 use App\Service\ValidateSymbolService;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
@@ -31,7 +31,7 @@ class HistoricalDataController extends AbstractController
         RequestInterface           $historyDataRequest,
         ValidateSymbolInterface    $validateSymbolService,
         FetchHistoricalDataInterface $fetchHistoricalDataService,
-        SendStockEmailInterface    $sendHistoricalDataEmailService
+        SendStockNotificationInterface $sendHistoricalDataEmailService
     ): JsonResponse
     {
         $historyDataRequest->validate();

@@ -4,7 +4,7 @@ namespace App\Tests;
 
 use App\Entity\Company;
 use App\Service\FetchCompanyNameService;
-use App\Service\SendHistoricalDataEmailService;
+use App\Service\SendHistoricalDataNotificationService;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -34,7 +34,7 @@ class SendHistoricalDataEmailServiceTest extends KernelTestCase
         $em->persist($c);
         $em->flush();
 
-        $s = new SendHistoricalDataEmailService(
+        $s = new SendHistoricalDataNotificationService(
             new Mailer(new SendgridApiTransport($_ENV['SENDGRID_KEY'])),
             new FetchCompanyNameService($em)
         );
