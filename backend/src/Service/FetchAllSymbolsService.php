@@ -5,11 +5,9 @@ namespace App\Service;
 use App\Entity\Company;
 use Doctrine\ORM\EntityManagerInterface;
 
-class FetchAllSymbolsService implements FetchAllSymbolsInterface
+final class FetchAllSymbolsService implements FetchAllSymbolsInterface
 {
-    public function __construct(protected EntityManagerInterface $em)
-    {
-    }
+    public function __construct(private EntityManagerInterface $em) {}
 
     public function fetch(): array
     {

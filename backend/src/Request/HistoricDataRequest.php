@@ -11,19 +11,19 @@ use Symfony\Component\Validator\Constraints\Type;
 class HistoricDataRequest extends BaseRequest
 {
     #[NotBlank()]
-    protected $symbol;
+    private $symbol;
 
     #[NotBlank()]
     #[Type('numeric')]
     #[Positive()]
-    protected $start_date;
+    private $start_date;
 
     #[NotBlank()]
     #[Type('numeric')]
     #[Positive()]
-    protected $end_date;
+    private $end_date;
 
     #[NotBlank()]
     #[Email()]
-    protected $email;
+    private $email;
 }

@@ -8,7 +8,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BaseRequest implements RequestInterface
 {
-    public function __construct(protected ValidatorInterface $validator)
+    public function __construct(
+        private readonly ValidatorInterface $validator
+    )
     {
         $this->populate();
         $this->validate();

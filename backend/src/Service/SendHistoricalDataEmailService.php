@@ -10,11 +10,11 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
-class SendHistoricalDataEmailService implements SendStockEmailInterface
+final class SendHistoricalDataEmailService implements SendStockEmailInterface
 {
     public function __construct(
-        protected MailerInterface $mailer,
-        protected FetchCompanyNameInterface $fetchCompanyNameService
+        private readonly MailerInterface    $mailer,
+        private readonly FetchCompanyNameInterface $fetchCompanyNameService
     )
     {
     }

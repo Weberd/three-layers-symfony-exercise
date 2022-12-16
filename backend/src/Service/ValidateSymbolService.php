@@ -5,10 +5,11 @@ namespace App\Service;
 use App\Entity\Company;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ValidateSymbolService implements ValidateSymbolInterface
+final class ValidateSymbolService implements ValidateSymbolInterface
 {
-    public function __construct(protected EntityManagerInterface $em)
-    {}
+    public function __construct(
+        private readonly EntityManagerInterface $em
+    ) {}
 
     public function validate($symbol): bool
     {

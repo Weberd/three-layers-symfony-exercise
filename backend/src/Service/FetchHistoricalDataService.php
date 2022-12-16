@@ -2,19 +2,21 @@
 
 namespace App\Service;
 
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class FetchHistoricalDataService implements FetchHistoricalDataInterface
+final class FetchHistoricalDataService implements FetchHistoricalDataInterface
 {
     public function __construct(
-        protected HttpClientInterface $client,
-        protected CacheServiceInterface $redisCacheService
-    )
-    {
-    }
+        private readonly HttpClientInterface $client,
+        private readonly CacheServiceInterface $redisCacheService
+    ) {}
 
-    protected function transformData($data): array
+    private function transformData($data): array
     {
         $data = $data['prices'];
         $map = [];
@@ -29,7 +31,7 @@ class FetchHistoricalDataService implements FetchHistoricalDataInterface
         return $map;
     }
 
-    protected function sliceData($map, $startDate, $endDate): array
+    private function sliceData($map, $startDate, $endDate): array
     {
         $slice = [];
 
@@ -46,7 +48,15 @@ class FetchHistoricalDataService implements FetchHistoricalDataInterface
     }
 
     /**
+     * @param string $symbol
+     * @param int $startDate
+     * @param int $endDate
+     * @return array
      * @throws TransportExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
      */
     public function fetch(string $symbol, int $startDate, int $endDate): array
     {
@@ -69,7 +79,6 @@ class FetchHistoricalDataService implements FetchHistoricalDataInterface
         }
 
         $map = $this->transformData($data);
-        $map = $this->sliceData($map, $startDate, $endDate);
-        return $map;
+        return $this->sliceData($map, $startDate, $endDate);
     }
 }

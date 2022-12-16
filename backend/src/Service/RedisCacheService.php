@@ -4,9 +4,9 @@ namespace App\Service;
 
 use Predis\Client;
 
-class RedisCacheService implements CacheServiceInterface
+final class RedisCacheService implements CacheServiceInterface
 {
-    protected $client;
+    private Client $client;
     public function __construct()
     {
         $this->client = new Client([
