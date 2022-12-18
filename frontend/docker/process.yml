@@ -1,2 +1,0 @@
-- script: nginx -g 'daemon off;'
-  name: 'nginx'
