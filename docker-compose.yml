@@ -5,8 +5,6 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     container_name: xm-mysql
-    ports:
-      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=123
     volumes:
@@ -16,13 +14,17 @@ services:
   cache-redis:
     image: redis:latest
     container_name: xm-cache-redis
-    ports:
-      - "6379:6379"
 
   php-fpm:
     build:
       context: ./backend
       dockerfile: docker/Dockerfile
+      target: app_php
+    volumes:
+      - php_socket:/var/run/php
+    environment:
+      #DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-14}
+      DATABASE_URL: mysql://root:123@xm-mysql:3306/xm?serverVersion=14&charset=utf8
     restart: unless-stopped
     container_name: xm-php-fpm
     links:
@@ -41,6 +43,8 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     container_name: xm-nginx
+    volumes:
+      - php_socket:/var/run/php
     ports:
       - "80:80"
     links:
@@ -48,5 +52,6 @@ services:
       - frontend
 
 volumes:
+  php_socket:
   xm-mysql-data:
     driver: local
