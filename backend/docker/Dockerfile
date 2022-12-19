@@ -30,6 +30,7 @@ RUN set -eux; \
 		opcache \
     ;
 
+COPY docker/zz-php-fpm.conf /usr/local/etc/php-fpm.d/zz-php-fpm.conf
 RUN mkdir -p /var/run/php
 
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
