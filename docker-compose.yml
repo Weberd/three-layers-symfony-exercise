@@ -40,8 +40,8 @@ services:
 
   nginx:
     build:
-      context: ./nginx
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: nginx/Dockerfile
     container_name: xm-nginx
     volumes:
       - php_socket:/var/run/php
