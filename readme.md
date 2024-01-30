@@ -1,7 +1,5 @@
 # Installation
 
-Live Demo Video: https://drive.google.com/file/d/1sesp3Em4tbIlHe6MkbM3N2LPtMxpN2yl/view?usp=sharing
-
 ## Dev version
 
 ### Install Symfony Console
