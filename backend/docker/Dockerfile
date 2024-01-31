@@ -33,12 +33,6 @@ RUN set -eux; \
 COPY docker/zz-php-fpm.conf /usr/local/etc/php-fpm.d/zz-php-fpm.conf
 RUN mkdir -p /var/run/php
 
-COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
-ENTRYPOINT ["docker-entrypoint"]
-CMD ["php-fpm"]
-
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
@@ -65,3 +59,11 @@ RUN set -eux; \
 		composer run-script --no-dev post-install-cmd; \
 		chmod +x bin/console; sync; \
     fi
+
+COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY docker/docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-php-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["php-fpm"]
