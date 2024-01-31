@@ -2,14 +2,10 @@
 
 namespace App\Controller;
 
-use App\Request\HistoricDataRequest;
 use App\Request\RequestInterface;
 use App\Service\FetchHistoricalDataInterface;
-use App\Service\FetchHistoricalDataService;
-use App\Service\SendHistoricalDataNotificationService;
 use App\Service\SendStockNotificationInterface;
 use App\Service\ValidateSymbolInterface;
-use App\Service\ValidateSymbolService;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
