@@ -25,13 +25,11 @@
     "@nebular/theme": "^10.0.0",
     "ag-grid-angular": "^28.2.1",
     "ag-grid-community": "^28.2.1",
-    "apexcharts": "^3.36.3",
     "eva-icons": "^1.1.2",
-    "ng-apexcharts": "^1.7.4",
+    "moment": "^2.30.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "moment": "^2.30.1"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.3",

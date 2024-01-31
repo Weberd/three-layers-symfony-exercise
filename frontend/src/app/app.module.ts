@@ -11,7 +11,7 @@ import {NbMomentDateModule} from "@nebular/moment";
 import { HistoryDataComponent } from './history-data/history-data.component';
 import {AgGridModule} from "ag-grid-angular";
 import { HistoryDataRequestComponent } from './history-data-request/history-data-request.component';
-import {NgApexchartsModule} from "ng-apexcharts";
+// import {NgApexchartsModule} from "ng-apexcharts";
 import {SymbolsService} from "../services/symbols.service";
 import {HistoricalDataService} from "../services/historical-data.service";
 import {HttpClientModule} from "@angular/common/http";
@@ -34,7 +34,7 @@ import {HttpClientModule} from "@angular/common/http";
     NbMomentDateModule,
     ReactiveFormsModule,
     AgGridModule,
-    NgApexchartsModule,
+    // NgApexchartsModule,
     HttpClientModule,
   ],
   providers: [
