@@ -3,7 +3,7 @@ FROM node:14-alpine as builder
 WORKDIR /app
 COPY package.json .
 RUN npm install
-RUN npm install -g @angular/cli@14
+RUN npm install -g @angular/cli@14.1.3
 COPY . .
 RUN ng build -c production
 
