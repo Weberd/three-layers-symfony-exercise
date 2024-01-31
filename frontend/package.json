@@ -30,7 +30,8 @@
     "ng-apexcharts": "^1.7.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "moment": "^2.30.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.3",
